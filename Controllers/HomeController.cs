@@ -1,32 +1,38 @@
 using EmployeeManagementSystem.Models;
+using EmployeeManagementSystem.Services.EmployeeServices;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace EmployeeManagementSystem.Controllers
 {
+    [ApiController]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IEmployeeService _employeeService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IEmployeeService employeeService)
         {
-            _logger = logger;
+            _employeeService = employeeService;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        [Route("")]
+        public async Task<ActionResult<IEnumerable<Employee>>> Index()
         {
-            return View();
-        }
+            try
+            {
+                var employees = await _employeeService.GetAllEmployeesAsync();
+                if (employees == null)
+                {
+                    return NotFound();
+                }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                return View(employees);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from the database\n" + ex.Message);
+            }
         }
     }
 }
