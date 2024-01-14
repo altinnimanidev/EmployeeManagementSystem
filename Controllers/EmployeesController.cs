@@ -16,6 +16,43 @@ namespace EmployeeManagementSystem.Controllers
         }
 
         [HttpGet]
+        [Route("add")]
+        public IActionResult Add()
+        {
+            var employee = new Employee(); // Create a new instance of the Employee model
+            return View(employee); // Pass the model to the View
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public async Task<IActionResult> Add([FromForm] Employee employee)
+        {
+            if (!ModelState.IsValid)
+            {
+                // Handle the case where the model is not valid
+                return View(employee);
+            }
+
+            try
+            {
+                var newEmployee = await _employeeService.AddEmployeeAsync(employee);
+
+                if (newEmployee == null)
+                {
+                    // Handle the case where the employee couldn't be added
+                    return BadRequest("Could not add employee");
+                }
+
+                return RedirectToAction("Index", "Home"); // Redirect to a suitable page after adding
+            }
+            catch (Exception ex)
+            {
+                // Log the exception and handle the error
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error adding employee");
+            }
+        }
+
+        [HttpGet]
         [Route("edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
