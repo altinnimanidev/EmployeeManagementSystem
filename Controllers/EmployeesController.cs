@@ -45,7 +45,7 @@ namespace EmployeeManagementSystem.Controllers
 
                 return RedirectToAction("Index", "Home"); // Redirect to a suitable page after adding
             }
-            catch (Exception ex)
+            catch
             {
                 // Log the exception and handle the error
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error adding employee");
@@ -100,7 +100,7 @@ namespace EmployeeManagementSystem.Controllers
                 }
                 return RedirectToAction("Index", "Home");
             }
-            catch (Exception ex)
+            catch
             {
                 // Log the exception and handle the error
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error updating employee");

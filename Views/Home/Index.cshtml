@@ -1,4 +1,8 @@
-﻿@model IEnumerable<EmployeeManagementSystem.Models.Employee>
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common
+
+@model IPagedList<EmployeeManagementSystem.Models.Employee>
 
 @{
     ViewBag.Title = "Employees List";
@@ -66,9 +70,21 @@
                                 }
                             </tbody>
                         </table>
+                        @{
+                            var pagedListRenderOptions = new PagedListRenderOptions
+                            {
+                                PageClasses = new[] { "px-4", "py-2", "mx-1" },
+                                UlElementClasses = new[] { "flex", "list-none" },
+                                LiElementClasses = new[] { "list-none" }, 
+                            };
+                        }
+                        <div class="flex justify-center">
+                            @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }), pagedListRenderOptions)
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+

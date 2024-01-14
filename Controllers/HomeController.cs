@@ -2,6 +2,7 @@ using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.Services.EmployeeServices;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using X.PagedList;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -17,7 +18,7 @@ namespace EmployeeManagementSystem.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<ActionResult<IEnumerable<Employee>>> Index()
+        public async Task<ActionResult<IPagedList<Employee>>> Index(int page = 1, int pageSize = 10) // Default is page 1 and 10 items per page
         {
             try
             {
@@ -27,12 +28,14 @@ namespace EmployeeManagementSystem.Controllers
                     return NotFound();
                 }
 
-                return View(employees);
+                var pagedEmployees = employees.ToPagedList(page, pageSize); // Using X.PagedList
+                return View(pagedEmployees);
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error retrieving data from the database\n" + ex.Message);
             }
         }
+
     }
 }
