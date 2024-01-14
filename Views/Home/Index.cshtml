@@ -4,19 +4,17 @@
     ViewBag.Title = "Employees List";
 }
 
-<div class="w-full min-h-screen flex items-center justify-center">
-    <div class="w-full sm:w-full md:w-3/4 lg:w-3/4  p-4">
-
-
+<<div class="w-full min-h-screen flex justify-center mt-4">
+    <div class="w-full sm:w-full md:w-3/4 lg:w-3/4 p-4">
         <div class="px-4 sm:px-6 lg:px-8">
-            <div class="sm:flex sm:items-center">
+            <div class="sm:flex">
                 <div class="sm:flex-auto">
                     <h1 class="text-base font-semibold leading-6 text-gray-900">Employees</h1>
                     <p class="mt-2 text-sm text-gray-700">
                         A comprehensive list of all employees, showcasing their names, positions, and salaries.
                     </p>
                 </div>
-                <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+                <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none"> 
                     <a asp-action="Add" asp-controller="Employees" class="px-4 py-2 bg-blue-500 text-white rounded">
                         <span>Add New Employee</span>
                     </a>
@@ -28,8 +26,7 @@
                         <table class="min-w-full divide-y divide-gray-300">
                             <thead>
                                 <tr>
-                                    <th scope="col"
-                                        class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">First Name</th>
+                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">First Name</th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Last Name</th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Position</th>
                                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Salary</th>
