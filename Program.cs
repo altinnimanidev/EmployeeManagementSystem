@@ -9,10 +9,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
-
-builder.Services.AddMvc();
 
 var app = builder.Build();
 
